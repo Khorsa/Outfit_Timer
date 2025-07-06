@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <v:String x:Key="Stopwatch">Секундомер</v:String>
+    <v:String x:Key="Timer">Таймер</v:String>
+    <v:String x:Key="Start">Старт</v:String>
+    <v:String x:Key="Stop">Стоп</v:String>
+    <v:String x:Key="Cutoff">Отсечка</v:String>
+
+    <v:String x:Key="Reset">Сброс</v:String>
+    <v:String x:Key="AddSec10">+10 сек</v:String>
+    <v:String x:Key="AddSec60">+1 мин</v:String>
+    <v:String x:Key="AddSec300">+5 мин</v:String>
+    <v:String x:Key="AddSec1200">+20 мин</v:String>
+    <v:String x:Key="AddSec3600">+1 час</v:String>
+    <v:String x:Key="AddSec21600">+6 часов</v:String>
+    
+</ResourceDictionary>

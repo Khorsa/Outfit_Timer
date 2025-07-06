@@ -1,0 +1,63 @@
+﻿<Window x:Class="Timer.TimerForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Timer"
+        mc:Ignorable="d"
+        Title="{ DynamicResource Timer }" 
+        Height="300" 
+        Width="230" 
+        MinHeight="300"
+        MinWidth="230"
+        WindowStyle="ToolWindow" 
+        Closing="Window_Closing"
+        >
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Timer;component/Languages/lang.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <TabControl x:Name="timerTabs">
+            <TabItem Header="{DynamicResource Stopwatch}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="TimerText" Grid.Row="0" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                    <Button x:Name="StartButton" Grid.Row="1" FontSize="16" Content="{DynamicResource Start}" Background="LightGray" FontWeight="Bold" Foreground="Black" Width="Auto" HorizontalAlignment="Stretch" Padding="4" Margin="2" Click="StartButton_Click" />
+                    <Button x:Name="StopButton" Grid.Row="2" FontSize="16" Content="{DynamicResource Stop}" Background="LightGray" FontWeight="Bold" Foreground="Red" Width="Auto" HorizontalAlignment="Stretch" Padding="4" Margin="2" Click="StopButton_Click" />
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="{DynamicResource Timer}">
+                <StackPanel>
+                    <StackPanel Background="Black" Margin="5">
+                        <TextBlock Name="TimerTextBlock" FontSize="26" Foreground="LimeGreen" Padding="0 5" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Text="00:00:00.0" FontFamily="Cascadia Code" />
+                    </StackPanel>
+                    <Button FontWeight="Bold" FontSize="16" Content="{DynamicResource Reset}" Background="LightGray" Foreground="Blue" Width="Auto" HorizontalAlignment="Stretch"  Margin="3" Padding="0 3" Tag="Reset" Click="TimerButtons_Click" />
+
+                    <UniformGrid Columns="2" Rows="3">
+                        <Button FontWeight="Bold" FontSize="16" Content="{DynamicResource AddSec10}" Width="Auto" Background="LightGray" Margin="3" Padding="0 3" Tag="10" Click="TimerButtons_Click" />
+                        <Button FontWeight="Bold" FontSize="16" Content="{DynamicResource AddSec60}" Width="Auto" Background="LightGray"  Margin="3" Padding="0 3" Tag="60" Click="TimerButtons_Click" />
+                        <Button FontWeight="Bold" FontSize="16" Content="{DynamicResource AddSec300}" Width="Auto" Background="LightGray"  Margin="3" Padding="0 3" Tag="300" Click="TimerButtons_Click" />
+                        <Button FontWeight="Bold" FontSize="16" Content="{DynamicResource AddSec1200}" Width="Auto" Background="LightGray"  Margin="3" Padding="0 3" Tag="1200" Click="TimerButtons_Click" />
+                        <Button FontWeight="Bold" FontSize="16" Content="{DynamicResource AddSec3600}" Width="Auto" Background="LightGray"  Margin="3" Padding="0 3" Tag="3600" Click="TimerButtons_Click" />
+                        <Button FontWeight="Bold" FontSize="16" Content="{DynamicResource AddSec21600}" Width="Auto" Background="LightGray"  Margin="3" Padding="0 3" Tag="21600" Click="TimerButtons_Click" />
+                    </UniformGrid>
+
+                    <Button FontWeight="Bold" FontSize="16" Content="{DynamicResource Start}" Background="LightGray" Foreground="Red" Width="Auto" HorizontalAlignment="Stretch"  Margin="3" Padding="0 3" Click="TimerStart_Click" />
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+
+
+</Window>

@@ -1,61 +1,68 @@
-﻿using Timer.Commands;
-using OutfitTool.Common;
+﻿/*
+ * Copyright (C) 2026 Roman Stolyarov <rshome@mail.ru>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ */
+using Timer.Commands;
 using System.Globalization;
 using System.Windows.Media.Imaging;
+using OutfitTool.API1;
+using OutfitTool.API1.Logger;
+using OutfitTool.API1.Dto;
 
-namespace Timer
+namespace Timer;
+
+internal class ModuleController : IModuleController
 {
-    internal class ModuleController : ModuleControllerInterface
+    public static TimerForm TimerForm = new TimerForm();
+
+    public ModuleController() 
     {
-        public static TimerForm timerForm = new TimerForm();
+    }
 
-        public ModuleController() 
-        {
-        }
+    public List<ICommand> GetCommandList()
+    {
+        return new List<ICommand>([
+            new ToggleStopwatchCommand(),
+            new ToggleTimerCommand()
+        ]);
+    }
 
-        public List<CommandInterface> getCommandList()
-        {
-            return new List<CommandInterface>([
-                new ToggleStopwatchCommand(),
-                new ToggleTimerCommand()
-            ]);
-        }
+    public void SetLanguage(string language)
+    {
+        LocalizationHelper.SetLanguage(new CultureInfo(language));
+    }
 
-        public void init()
+    public void Shutdown()
+    {
+        if (TimerForm != null)
         {
-            timerForm = new TimerForm();
+            TimerForm.Close(); 
         }
+    }
 
-        public void setLanguage(string language)
-        {
-            LocalizationHelper.Language = new CultureInfo(language);
-        }
+    public BitmapImage? GetTaskbarIcon()
+    {
+        return null;
+    }
+    public string? GetTaskbarIconText()
+    {
+        return null;
+    }
 
-        public void shutdown()
-        {
-            if (timerForm != null)
-            {
-                timerForm.Close(); 
-            }
-        }
+    public Notification? PopNotification()
+    {
+        return null;
+    }
 
-        public BitmapImage? getTaskbarIcon()
-        {
-            return null;
-        }
-        public string? getTaskbarIconText()
-        {
-            return null;
-        }
-
-        public Notification? popNotification()
-        {
-            return null;
-        }
-
-        public void openSettings()
-        {
-        }
-
+    public void OpenSettings()
+    {
+    }
+    public void Init(ILogger logger)
+    {
+        TimerForm = new TimerForm();
     }
 }

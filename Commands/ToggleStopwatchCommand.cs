@@ -1,54 +1,62 @@
-﻿using OutfitTool.Common;
+﻿/*
+ * Copyright (C) 2026 Roman Stolyarov <rshome@mail.ru>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ */
 using System.Reflection;
 using System.Windows.Media.Imaging;
 using System.Windows;
+using OutfitTool.API1;
+using OutfitTool.API1.Dto;
 
-namespace Timer.Commands
+namespace Timer.Commands;
+
+class ToggleStopwatchCommand: ICommand
 {
-    class ToggleStopwatchCommand: CommandInterface
-    {
-        public string Name => "ShowHideStopwatch";
-        public string Description => LocalizationHelper.GetString("Stopwatch");
-        public CommandContextMenu? ContextMenu => getContextMenu();
+    public string Name => "ShowHideStopwatch";
+    public string Description => LocalizationHelper.GetString("Stopwatch");
+    public CommandContextMenu? ContextMenu => GetContextMenu();
 
-        public CommandContextMenu? getContextMenu()
+    public CommandContextMenu? GetContextMenu()
+    {
+        string resourceName = "stopwatch.png";
+        return new CommandContextMenu(
+            LocalizationHelper.GetString("Stopwatch"),
+            new BitmapImage(
+                new Uri("pack://application:,,,/" + Assembly.GetExecutingAssembly().GetName().Name + ";component/Resources/" + resourceName)
+            )
+        );
+    }
+
+    public void Run()
+    {
+        if (ModuleController.TimerForm == null)
         {
-            string resourceName = "stopwatch.png";
-            return new CommandContextMenu(
-                LocalizationHelper.GetString("Stopwatch"),
-                new BitmapImage(
-                    new Uri("pack://application:,,,/" + Assembly.GetExecutingAssembly().GetName().Name + ";component/Resources/" + resourceName)
-                    )
-                );
+            return;
         }
 
-        public void run()
+        if (ModuleController.TimerForm.Visibility == Visibility.Visible)
         {
-            if (ModuleController.timerForm == null)
+            if (ModuleController.TimerForm.timerTabs.SelectedIndex == 1)
             {
-                return;
-            }
-
-            if (ModuleController.timerForm.Visibility == Visibility.Visible)
-            {
-                if (ModuleController.timerForm.timerTabs.SelectedIndex == 1)
-                {
-                    ModuleController.timerForm.timerTabs.SelectedIndex = 0;
-                }
-                else
-                {
-                    ModuleController.timerForm.Hide();
-                    ModuleController.timerForm.Visibility = Visibility.Hidden;
-                }
+                ModuleController.TimerForm.timerTabs.SelectedIndex = 0;
             }
             else
             {
-                ModuleController.timerForm.Topmost = true;
-                ModuleController.timerForm.Show();
-                ModuleController.timerForm.Activate();
-                ModuleController.timerForm.timerTabs.SelectedIndex = 0;
-                ModuleController.timerForm.Focus();
+                ModuleController.TimerForm.Hide();
+                ModuleController.TimerForm.Visibility = Visibility.Hidden;
             }
+        }
+        else
+        {
+            ModuleController.TimerForm.Topmost = true;
+            ModuleController.TimerForm.Show();
+            ModuleController.TimerForm.Activate();
+            ModuleController.TimerForm.timerTabs.SelectedIndex = 0;
+            ModuleController.TimerForm.Focus();
         }
     }
 }

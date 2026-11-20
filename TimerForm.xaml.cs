@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2026 Roman Stolyarov <rshome@mail.ru>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -42,6 +42,13 @@ public partial class TimerForm
         }
         text += FormatTimerOutput(DateTime.Now - first);
         TimerText.Text = text;
+    }
+
+    public void StopTimers()
+    {
+        _stopWatchTimer.Stop();
+        _timerTimer.Stop();
+        _cutoffs.Clear();
     }
 
     private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

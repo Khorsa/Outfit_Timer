@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2026 Roman Stolyarov <rshome@mail.ru>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,7 +17,7 @@ namespace Timer;
 
 internal class ModuleController : IModuleController
 {
-    public static TimerForm TimerForm = new TimerForm();
+    public static TimerForm? TimerForm;
 
     public ModuleController() 
     {
@@ -40,7 +40,9 @@ internal class ModuleController : IModuleController
     {
         if (TimerForm != null)
         {
-            TimerForm.Close(); 
+            TimerForm.StopTimers();
+            TimerForm.Close();
+            TimerForm = null;
         }
     }
 
@@ -63,6 +65,7 @@ internal class ModuleController : IModuleController
     }
     public void Init(ILogger logger)
     {
+        TimerForm?.StopTimers();
         TimerForm = new TimerForm();
     }
 }
